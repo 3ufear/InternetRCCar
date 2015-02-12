@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script type='text/javascript'>
+var pr_key = 0;
+function go(cur_speed) {
+    $.ajax({
+        url: "http://server:3000/set_speed",
+        data: {speed : cur_speed},
+        cache: false,
+        success: function(){
+            //delayedAlert();
+        }
+    });
+}
+
+function btn_up(code) {
+    $.ajax({
+        url: "http://server:3000/btn_up",
+        data: {code : code},
+        cache: false,
+        success: function(){
+            //delayedAlert();
+        }
+    });
+}
+
+function btn_down(code) {
+    $.ajax({
+        url: "http://server:3000/btn_down",
+        data: {code : code},
+        cache: false,
+        success: function(){
+            //delayedAlert();
+        }
+    });
+}
+
+</script>
+
+</head>
+<body id='foo'>
+<button onclick='go(1)'>Вперед</button>
+<button onclick='go(0)'>Стоп</button>
+<button onclick='go(-1)'>Назад</button>
+
+<script type='text/javascript'> 
+$('#foo').keydown(function(key){
+  if (pr_key != key.which) {
+      btn_down(key.which);
+      pr_key = key.which;
+  } 
+});
+
+$('#foo').keyup(function(key){
+  btn_up(key.which);
+  pr_key = 0;
+});
+
+</script>
+</body>
+</html>
